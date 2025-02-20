@@ -1,0 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   functions.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: leobarbo <leobarbo@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/20 00:32:13 by leobarbo          #+#    #+#             */
+/*   Updated: 2025/02/20 00:32:13 by leobarbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FUNCTIONS_H
+# define FUNCTIONS_H
+
+# include "cub.h"
+
+/* MAIN */
+int		init_game(t_cub *game);
+void	handle_mlx_actions(int action, t_cub *game);
+
+/* INIT */
+void	init_cub(t_cub *game);
+void	init_data(t_cub *game);
+void	init_variables_valid(t_validate *valid);
+
+/* UTILS */
+int		open_file(char *filename);
+t_cub	*get_game(t_cub *game);
+void	handle_error(char *error);
+
+/* FREE_MEMORY */
+void	free_data(t_data *data);
+void	free_memory(t_cub *game);
+
+/* HOOKS */
+void			hook_key_press(mlx_key_data_t keydata, void *param);
+void			hook_close(void *param);
+
+/* MOVEMENTS */
+void			process_input(t_cub *game);
+bool			can_move_to(t_cub *game, float new_x, float new_y);
+void			calculate_new_position(t_cub *game, float *new_x, float *new_y);
+
+/* IMAGES */
+mlx_texture_t	*init_textures(char *path);
+void			load_textures(t_cub *game);
+uint32_t		get_texture_color(mlx_texture_t *texture, int y, int x);
+
+/* DRAW SQUARES */
+void			draw_background(t_cub *game);
+
+/* WALL */
+mlx_texture_t	*set_wall(t_cub *game, t_dda *ray);
+void			draw_wall(t_dda *ray, t_cub *game, int pixel);
+
+/* SETUP */
+void			setup(t_cub *game);
+void			update_fps(t_cub *game);
+
+/* ALGORITHM */
+void			draw_rays(t_cub *game);
+void			calculate_delta_distance(t_dda *ray);
+void			calculate_distance_to_side(t_dda *ray, t_cub *game);
+void			dda_algorithm(t_dda *ray, t_cub *game);
+
+/* DRAW LOOP */
+void			draw_playerview(void *param);
+
+/* VALIDATION */
+void		validate_map(int argc, char **argv, t_cub *game);
+void		check_arguments(int argc);
+void		check_extension(char *map_file);
+void		check_map_content(t_validate *valid);
+void		check_rgb(uint32_t *color, char *rgb_color, char *original, char c);
+void		split_rgb(char ***rgb, char *rgb_color, char *original, char c);
+uint32_t	convert_rgb(int r, int g, int b);
+int			check_path(char *path);
+
+/* DATA PROCESSING */
+void		data_processing(char *map_file, t_data *data);
+void		read_textures_path(t_data *data, char *temp, int fd);
+
+/* PATH */
+void		read_textures_path_aux(t_data *data, char *temp, char *line);
+void		copy_texture_path(char **texture, char *path, char *mode,
+				char *line);
+void		trim_newline(char *str, char *line);
+void		check_spaces(char *temp, char *mode, char *line);
+
+/* MAP */
+void		count_map_size(t_data *data, char *temp, int fd);
+void		read_and_copy_map_content(char *temp, int fd);
+void		analyze_map_content(t_data *data, t_validate *valid);
+void		get_max_columns(t_data *data);
+void		get_max_lines(t_data *data);
+int			check_invalid_char(char c);
+
+/* WALL */
+void		surrounded_by_walls(t_data *data);
+bool		check_diagonals(t_data *data, int line, int col);
+bool		check_sides(t_data *data, int line, int col);
+
+/* TAB */
+int			count_tabs(char *line);
+void		found_tabs(t_data *data);
+char		*replace_tabs(char *line, int tabs);
+
+
+#endif
