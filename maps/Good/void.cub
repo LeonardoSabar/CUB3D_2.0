@@ -3,8 +3,8 @@ SO ./textures/visual/void_space.png
 WE ./textures/visual/void_space.png
 EA ./textures/visual/void_space.png
 
-F 20,20,20
-C 200,200,200
+F 128,0,0
+C 0,0,0
 
 11111111111111111111
 1N000000000000000001
