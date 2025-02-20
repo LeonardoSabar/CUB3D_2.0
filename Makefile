@@ -27,7 +27,7 @@ CFILES      :=  main.c \
 				init/init.c \
 				init/init_game.c \
 				utils/utils.c \
-				free_memory.c \
+				exit/free_memory.c \
                 parsing/parsing.c \
 				parsing/check_args.c \
 				parsing/check_rgb.c \
