@@ -19,7 +19,7 @@ void	parsing(int argc, char **argv, t_cub *game)
 	check_arguments(argc);
 	check_extension(argv[1]);
 	data_processing(argv[1], game->data);
-	init_variables_valid(&valid);
+	init_struct_variables(&valid);
 	found_tabs(game->data);
 	analyze_map_content(game->data, &valid);
 	check_map_content(&valid);

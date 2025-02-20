@@ -21,7 +21,7 @@ int		init_game(t_cub *game);
 
 /* INIT */
 void	init(t_cub *game);
-void	init_variables_valid(t_validate *valid);
+void	init_struct_variables(t_validate *valid);
 
 /* UTILS */
 int		open_file(char *filename);
@@ -101,7 +101,6 @@ bool		check_diagonals(t_data *data, int line, int col);
 bool		check_sides(t_data *data, int line, int col);
 
 /* TAB */
-int			count_tabs(char *line);
 void		found_tabs(t_data *data);
 char		*replace_tabs(char *line, int tabs);
 

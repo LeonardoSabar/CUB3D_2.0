@@ -22,8 +22,7 @@
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
 
-# define WARNING_ARGS_1 "Error: no map file.\n"
-# define WARNING_ARGS_2 "Error: too many arguments.\n"
+# define WARNING_ARGS "Error: Number of arguments is invalid.\n"
 # define WARNING_EXT "Error: the map file must be .cub\n"
 # define WARNING_PLAYER "Error: invalid player.\n"
 # define WARNING_INVALID "Error: there are invalid characters on the map.\n"

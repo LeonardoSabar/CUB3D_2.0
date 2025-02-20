@@ -28,7 +28,7 @@ static void	init_data(t_cub *game)
 	game->data->ceiling = 0;
 }
 
-void	init_variables_valid(t_validate *valid)
+void	init_struct_variables(t_validate *valid)
 {
 	valid->invalid = 0;
 	valid->player = 0;

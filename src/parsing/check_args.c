@@ -14,15 +14,9 @@
 
 void	check_arguments(int argc)
 {
-	if (argc < 2)
+	if (argc != 2)
 	{
-		printf(WARNING_ARGS_1);
-		free_memory(get_game(NULL));
-		exit(EXIT_FAILURE);
-	}
-	else if (argc > 2)
-	{
-		printf(WARNING_ARGS_2);
+		printf(RED WARNING_ARGS RST);
 		free_memory(get_game(NULL));
 		exit(EXIT_FAILURE);
 	}
@@ -32,20 +26,20 @@ void	check_arguments(int argc)
 
 void	check_extension(char *map_file)
 {
-	char	*dotcub;
+	char	*extension;
 	int		i;
 	int		len;
 
 	i = 0;
-	dotcub = ".cub";
+	extension = ".cub";
 	len = ft_strlen(map_file);
 	len = len - 4;
-	while (map_file[len] && dotcub[i] && map_file[len] == dotcub[i])
+	while (map_file[len] && extension[i] && map_file[len] == extension[i])
 	{
 		i++;
 		len++;
 	}
-	if (dotcub[i] == '\0')
+	if (extension[i] == '\0')
 		return ;
 	handle_error(WARNING_EXT);
 	exit(EXIT_FAILURE);

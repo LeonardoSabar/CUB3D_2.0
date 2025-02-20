@@ -12,7 +12,7 @@
 
 #include "../../includes/cub.h"
 
-int	count_tabs(char *line)
+static int	count_tabs(char *line)
 {
 	int	i;
 	int	tabs;
