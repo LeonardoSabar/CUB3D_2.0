@@ -19,13 +19,14 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <stdbool.h>
+# include <stdint.h>
 # include <string.h>
 # include <math.h>
 # include "colors.h"
 # include "structs.h"
 # include "macros.h"
 # include "functions.h"
-# include "graphic.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/src/libft.h"
 
