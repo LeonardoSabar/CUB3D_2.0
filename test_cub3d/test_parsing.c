@@ -10,7 +10,7 @@
 
 #define MAPS_DIRECTORY1 "./maps/Good/"
 #define MAPS_DIRECTORY2 "./maps/Bad/"
-#define CUB_EXECUTABLE ".././cub3d"
+#define CUB_EXECUTABLE ".././cub3D"
 
 #define TERMINAL_WIDTH 100 // Largura do terminal
 #define DELAY 30000        // Tempo de delay do trem (30ms)
@@ -71,6 +71,11 @@ void run_train(void)
 
 bool has_extension(const char *filename, const char *extension)
 {
+    if (filename == NULL || extension == NULL)
+    {
+        printf(RED "Erro: filename ou extension é nulo\n" RST);
+        return false;
+    }
     size_t len = strlen(filename);
     size_t ext_len = strlen(extension);
     return len > ext_len && strcmp(filename + len - ext_len, extension) == 0;
@@ -78,8 +83,14 @@ bool has_extension(const char *filename, const char *extension)
 
 void test_map_parsing(const char *map_path, const char *directory)
 {
-     char command[512];
+    char command[512];
     char output_file[] = "output_tmp.txt";
+
+    if (map_path == NULL || directory == NULL)
+    {
+        printf(RED "Erro: map_path ou directory é nulo\n" RST);
+        return;
+    }
 
     // Executa o comando redirecionando a saída para um arquivo temporário
     snprintf(command, sizeof(command), "%s %s > %s 2>&1", CUB_EXECUTABLE, map_path, output_file);
@@ -101,6 +112,10 @@ void test_map_parsing(const char *map_path, const char *directory)
         {
             found_parsing_ok = 1;
             break;
+        }
+        else
+        {
+            found_parsing_ok = 0;
         }
     }
     fclose(fp);
@@ -176,6 +191,14 @@ int main()
     while (show_train)
         run_train();
 
+    printf(RED CUB_EXECUTABLE RST);
+    printf(RED MAPS_DIRECTORY1 RST);
+    printf(RED MAPS_DIRECTORY2 RST);
+    if (CUB_EXECUTABLE == NULL)
+    {
+        printf(RED "Erro: CUB_EXECUTABLE é nulo\n" RST);
+        return EXIT_FAILURE;
+    }
     process_maps_in_directory(MAPS_DIRECTORY1);
     process_maps_in_directory(MAPS_DIRECTORY2);
 
