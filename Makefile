@@ -14,33 +14,45 @@ NAME        := cub3D
 CFLAGS      := -Wextra -Wall -Werror -g3 -O3
 MAKEFLAGS   += --silent
 
-# LIBRARIES_PATH
 LIBMLX      := ./MLX42
 LIBFT_PATH  := ./libft
 LIBFT       := $(addprefix $(LIBFT_PATH)/, libft.a)
 MLX_REPO    := https://github.com/codam-coding-college/MLX42.git
 
-# PATHS
 CC          := gcc
 SRC_PATH    := src
 OBJ_PATH    := objects
 
-# SOURCES
-CFILES      :=  main.c init/init.c init/init_game.c utils/utils.c free_memory.c \
-                parsing/parsing.c parsing/check_args.c parsing/check_rgb.c parsing/data_processing.c parsing/map.c parsing/check_path.c parsing/map_utils.c parsing/check_wall.c parsing/tabs.c \
-                render/hooks.c render/movements.c render/images.c render/draw_squares.c render/wall.c \
-                render/algorithm.c render/setup.c render/draw_loop.c
+CFILES      :=  main.c \
+				init/init.c \
+				init/init_game.c \
+				utils/utils.c \
+				free_memory.c \
+                parsing/parsing.c \
+				parsing/check_args.c \
+				parsing/check_rgb.c \
+				parsing/data_processing.c \
+				parsing/map.c \
+				parsing/check_path.c \
+				parsing/map_utils.c \
+				parsing/check_wall.c \
+				parsing/tabs.c \
+                render/hooks.c \
+				render/movements.c \
+				render/images.c \
+				render/draw_squares.c \
+				render/wall.c \
+                render/algorithm.c \
+				render/update_image.c \
+				render/draw_loop.c
 
-# PATH_FILES
 SRCS        := $(addprefix $(SRC_PATH)/, $(CFILES))
 OBJS        := $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
-# HEADERS
 HEADERS     := -I ./includes
 HEADER_FILE := includes/cub.h ./MLX42/include
 LIBS_MLX    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-# LOADING BAR
 TOTAL_FILES = $(words $(CFILES))
 CURRENT_CFILES = 0
 
