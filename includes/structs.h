@@ -14,12 +14,8 @@
 # define STRUCTS_H
 
 # include "cub.h"
-
-typedef struct s_vector
-{
-	float	x;
-	float	y;
-}	t_vector;
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/src/libft.h"
 
 typedef struct s_data
 {
