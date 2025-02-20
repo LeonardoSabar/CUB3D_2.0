@@ -10,7 +10,7 @@
 
 #define MAPS_DIRECTORY1 "./maps/Good/"
 #define MAPS_DIRECTORY2 "./maps/Bad/"
-#define CUB_EXECUTABLE ".././cub3d"
+#define CUB_EXECUTABLE ".././cub3D"
 
 #define TERMINAL_WIDTH 100 // Largura do terminal
 #define DELAY 30000        // Tempo de delay do trem (30ms)
@@ -78,7 +78,7 @@ bool has_extension(const char *filename, const char *extension)
 
 void test_map_parsing(const char *map_path, const char *directory)
 {
-     char command[512];
+    char command[512];
     char output_file[] = "output_tmp.txt";
 
     // Executa o comando redirecionando a saída para um arquivo temporário
@@ -95,8 +95,12 @@ void test_map_parsing(const char *map_path, const char *directory)
 
     char line[256];
     int found_parsing_ok = 0;
+
+    // Imprimir todo o conteúdo do arquivo temporário
+    printf("\nResultados do teste para o mapa: %s\n", map_path);
     while (fgets(line, sizeof(line), fp))
     {
+        printf("%s", line);  // Imprime cada linha do arquivo
         if (strstr(line, "PARSSING OK") != NULL)
         {
             found_parsing_ok = 1;
