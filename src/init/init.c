@@ -10,28 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub.h"
+#include "../../includes/cub.h"
 
-void	init_cub(t_cub *game)
-{
-	game->mlx = NULL;
-	game->frame_time = 0;
-	game->keys.w = false;
-	game->keys.s = false;
-	game->keys.a = false;
-	game->keys.d = false;
-	game->keys.left = false;
-	game->keys.right = false;
-	game->north = NULL;
-	game->south = NULL;
-	game->west = NULL;
-	game->east = NULL;
-	game->data = ft_calloc(1, sizeof(t_data));
-	init_data(game);
-	get_game(game);
-}
 
-void	init_data(t_cub *game)
+static void	init_data(t_cub *game)
 {
 	game->data->size_textures = 0;
 	game->data->no = NULL;
@@ -50,4 +32,23 @@ void	init_variables_valid(t_validate *valid)
 {
 	valid->invalid = 0;
 	valid->player = 0;
+}
+
+void	init(t_cub *game)
+{
+	game->mlx = NULL;
+	game->frame_time = 0;
+	game->keys.w = false;
+	game->keys.s = false;
+	game->keys.a = false;
+	game->keys.d = false;
+	game->keys.left = false;
+	game->keys.right = false;
+	game->north = NULL;
+	game->south = NULL;
+	game->west = NULL;
+	game->east = NULL;
+	game->data = ft_calloc(1, sizeof(t_data));
+	init_data(game);
+	get_game(game);
 }

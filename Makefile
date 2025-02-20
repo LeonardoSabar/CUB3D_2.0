@@ -26,10 +26,10 @@ SRC_PATH    := src
 OBJ_PATH    := objects
 
 # SOURCES
-CFILES      :=  main.c init.c utils.c free_memory.c \
-                validation/validation.c validation/check_rgb.c validation/data_processing.c validation/map.c validation/check_path.c validation/map_utils.c validation/check_wall.c validation/tabs.c \
-                graphic/hooks.c graphic/movements.c graphic/images.c graphic/draw_squares.c graphic/wall.c \
-                graphic/algorithm.c graphic/setup.c graphic/draw_loop.c
+CFILES      :=  main.c init/init.c init/init_game.c utils/utils.c free_memory.c \
+                parsing/parsing.c parsing/check_args.c parsing/check_rgb.c parsing/data_processing.c parsing/map.c parsing/check_path.c parsing/map_utils.c parsing/check_wall.c parsing/tabs.c \
+                render/hooks.c render/movements.c render/images.c render/draw_squares.c render/wall.c \
+                render/algorithm.c render/setup.c render/draw_loop.c
 
 # PATH_FILES
 SRCS        := $(addprefix $(SRC_PATH)/, $(CFILES))

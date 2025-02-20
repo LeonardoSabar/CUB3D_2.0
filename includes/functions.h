@@ -17,11 +17,10 @@
 
 /* MAIN */
 int		init_game(t_cub *game);
-void	handle_mlx_actions(int action, t_cub *game);
+//void	handle_mlx_actions(int action, t_cub *game);
 
 /* INIT */
-void	init_cub(t_cub *game);
-void	init_data(t_cub *game);
+void	init(t_cub *game);
 void	init_variables_valid(t_validate *valid);
 
 /* UTILS */
@@ -68,7 +67,7 @@ void			dda_algorithm(t_dda *ray, t_cub *game);
 void			draw_playerview(void *param);
 
 /* VALIDATION */
-void		validate_map(int argc, char **argv, t_cub *game);
+void		parsing(int argc, char **argv, t_cub *game);
 void		check_arguments(int argc);
 void		check_extension(char *map_file);
 void		check_map_content(t_validate *valid);
