@@ -1,10 +1,10 @@
-NO ./textures/visual/void_space.png
-SO ./textures/visual/void_space.png
-WE ./textures/visual/void_space.png
-EA ./textures/visual/void_space.png
+NO ./textures/visual/beyond_matrix.png
+SO ./textures/visual/beyond_matrix.png
+WE ./textures/visual/beyond_matrix.png
+EA ./textures/visual/beyond_matrix.png
 
-F 128,0,0
-C 0,0,0
+F 248,248,248
+C 248,248,248
 
 11111111111111111111
 1N000000000000000001
