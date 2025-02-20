@@ -1,7 +1,7 @@
-NO ./textures/test/n.png
-SO ./textures/test/s.png
-WE ./textures/test/w.png
-EA ./textures/test/e.png
+NO ./textures/visual/s.png
+SO ./textures/original/south.png
+WE ./textures/original/west.png
+EA ./textures/visual/c.png
 
 F 164,169,20
 C 153,204,255

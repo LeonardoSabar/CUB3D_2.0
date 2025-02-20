@@ -64,8 +64,6 @@ $(LIBFT):
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER_FILE) | $(OBJ_PATH)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
-	$(call print_progress, Compiling: $<)
-	@echo "                                     "
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
