@@ -38,6 +38,8 @@ void	handle_error(char *error)
 	game = get_game(NULL);
 	if (game)
 		free_memory(game);
+	ft_putstr_fd(RED, 2);
 	ft_putstr_fd(error, 2);
+	ft_putstr_fd(RST, 2);
 	exit(1);
 }

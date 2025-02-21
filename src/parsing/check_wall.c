@@ -12,8 +12,43 @@
 
 #include "../../includes/cub.h"
 
-static void	fill_map_with_twos(t_data *data);
-static int	count_len(char *str);
+static int	count_len(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i] && str[i] != '2')
+	i++;
+	return (i);
+}
+
+static void	fill_map_with_twos(t_data *data)
+{
+	size_t	i;
+	size_t	j;
+	char	**new_map;
+
+	i = 0;
+	new_map = ft_calloc(data->lines + 1, sizeof(char *));
+	while (i < (size_t)data->lines)
+	{
+		j = 0;
+		new_map[i] = ft_calloc((data->columns + 1), sizeof(char));
+		while (j < ft_strlen(data->map[i]) - 1)
+		{
+			new_map[i][j] = data->map[i][j];
+			j++;
+		}
+		while (j < (size_t)data->columns)
+		{
+			new_map[i][j] = '2';
+			j++;
+		}
+		i++;
+	}
+	ft_free_matrix(data->map);
+	data->map = new_map;
+}
 
 bool	check_diagonals(t_data *data, int line, int col)
 {
@@ -83,40 +118,3 @@ void	surrounded_by_walls(t_data *data)
 	}
 }
 
-static void	fill_map_with_twos(t_data *data)
-{
-	size_t	i;
-	size_t	j;
-	char	**new_map;
-
-	i = 0;
-	new_map = ft_calloc(data->lines + 1, sizeof(char *));
-	while (i < (size_t)data->lines)
-	{
-		j = 0;
-		new_map[i] = ft_calloc((data->columns + 1), sizeof(char));
-		while (j < ft_strlen(data->map[i]) - 1)
-		{
-			new_map[i][j] = data->map[i][j];
-			j++;
-		}
-		while (j < (size_t)data->columns)
-		{
-			new_map[i][j] = '2';
-			j++;
-		}
-		i++;
-	}
-	ft_free_matrix(data->map);
-	data->map = new_map;
-}
-
-static int	count_len(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '2')
-		i++;
-	return (i);
-}

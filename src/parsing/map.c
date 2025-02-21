@@ -12,7 +12,24 @@
 
 #include "../../includes/cub.h"
 
-static void	is_not_bar_n(bool *is_map, bool *map_ended, char *temp, int size);
+static void	is_not_bar_n(bool *is_map, bool *map_ended, char *temp, int size)
+{
+	t_cub		*game;
+	static int	i;
+
+	game = get_game(NULL);
+	if (*map_ended)
+	{
+		free(temp);
+		handle_error("Error: map invalid.\n");
+	}
+	if (size >= game->data->size_textures)
+	{
+		game->data->map[i] = ft_strdup(temp);
+		i++;
+		*is_map = true;
+	}
+}
 
 void	count_map_size(t_data *data, char *temp, int fd)
 {
@@ -60,24 +77,6 @@ void	read_and_copy_map_content(char *temp, int fd)
 	close(fd);
 }
 
-static void	is_not_bar_n(bool *is_map, bool *map_ended, char *temp, int size)
-{
-	t_cub		*game;
-	static int	i;
-
-	game = get_game(NULL);
-	if (*map_ended)
-	{
-		free(temp);
-		handle_error("Error: map invalid.\n");
-	}
-	if (size >= game->data->size_textures)
-	{
-		game->data->map[i] = ft_strdup(temp);
-		i++;
-		*is_map = true;
-	}
-}
 
 void	analyze_map_content(t_data *data, t_validate *valid)
 {

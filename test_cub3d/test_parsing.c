@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include "test_parsing_colors.h"
 
-#define MAPS_DIRECTORY1 "./maps/Good/"
-#define MAPS_DIRECTORY2 "./maps/Bad/"
+#define MAPS_DIRECTORY1 "..//maps/Good/"
+#define MAPS_DIRECTORY2 "../maps/Bad/"
 #define CUB_EXECUTABLE ".././cub3D"
 
 #define TERMINAL_WIDTH 100 // Largura do terminal
