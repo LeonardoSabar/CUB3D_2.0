@@ -58,16 +58,23 @@ CURRENT_CFILES = 0
 
 define print_progress
     $(eval CURRENT_CFILES=$(shell echo $$(($(CURRENT_CFILES)+1))))
-    @echo -n "\rProgress: $(CURRENT_CFILES) / $(TOTAL_FILES) [$$(($(CURRENT_CFILES) * 100 / $(TOTAL_FILES))%)] : $(1) "
+    @echo -n "\rProgress: $(CURRENT_CFILES) / 
+		$(TOTAL_FILES) [$$(($(CURRENT_CFILES) * 100 / $(TOTAL_FILES))%)] : $(1) "
 endef
 
 all: libmlx $(OBJ_PATH) $(NAME)
 
 libmlx:
-	@if [ ! -d "$(LIBMLX)" ]; then \
-		echo "Cloning MLX42 repository..."; \
-		git clone $(MLX_REPO) $(LIBMLX); \
+	@if [ -d "$(LIBMLX)" ]; then \
+		if [ -z "$(ls -A $(LIBMLX))" ]; then \
+			echo "Removing empty directory $(LIBMLX)..."; \
+			rm -rf $(LIBMLX); \
+		else \
+			echo "MLX42 directory exists and is not empty."; \
+		fi; \
 	fi
+	@echo "Cloning MLX42 repository..."
+	@git clone $(MLX_REPO) $(LIBMLX)
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(LIBFT):
