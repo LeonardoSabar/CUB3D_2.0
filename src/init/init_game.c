@@ -15,14 +15,14 @@
 static void	handle_mlx_actions(t_cub *game)
 {
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-		game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
-		if (!game->mlx)
-			handle_error("Error: mlx_init failed.");
-		game->mlx_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-		if (!game->mlx_image)
-			handle_error("Error open window.\n");
-		if (mlx_image_to_window(game->mlx, game->mlx_image, 0, 0) < 0)
-			handle_error("Error mlx_image_to_window.\n");
+	game->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
+	if (!game->mlx)
+		handle_error("Error: mlx_init failed.");
+	game->mlx_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->mlx_image)
+		handle_error("Error open window.\n");
+	if (mlx_image_to_window(game->mlx, game->mlx_image, 0, 0) < 0)
+		handle_error("Error mlx_image_to_window.\n");
 }
 
 int	init_game(t_cub *game)
