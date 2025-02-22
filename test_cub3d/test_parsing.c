@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include "test_parsing_colors.h"
 
-#define MAPS_DIRECTORY1 "./maps/Good/"
-#define MAPS_DIRECTORY2 "./maps/Bad/"
+#define MAPS_DIRECTORY1 "../maps/Good/"
+#define MAPS_DIRECTORY2 "../maps/Bad/"
 #define CUB_EXECUTABLE ".././cub3D"
 
 #define TERMINAL_WIDTH 100 // Largura do terminal
@@ -19,6 +19,7 @@
 // Contadores globais de resultados
 int pass_count = 0;
 int not_pass_count = 0;
+static const char *ret = "                           ";
 
 // Controle para o trem
 int show_train = 1;
@@ -108,10 +109,8 @@ void test_map_parsing(const char *map_path, const char *directory)
     int found_parsing_ok = 0;
 
     // Imprimir todo o conteúdo do arquivo temporário
-    printf("\nResultados do teste para o mapa: %s\n", map_path);
     while (fgets(line, sizeof(line), fp))
-    {
-        printf("%s", line);  // Imprime cada linha do arquivo
+    {  
         if (strstr(line, "PARSSING OK") != NULL)
         {
             found_parsing_ok = 1;
@@ -137,6 +136,7 @@ void test_map_parsing(const char *map_path, const char *directory)
         else
         {
             printf("\n\033[1;31m[ NOT PASS ] Erro ao processar o mapa: %s\033[0m\n", map_path);
+            printf(" RETURN: %d\n", found_parsing_ok);
             not_pass_count++;
         }
     }
@@ -195,9 +195,6 @@ int main()
     while (show_train)
         run_train();
 
-    printf(RED CUB_EXECUTABLE RST);
-    printf(RED MAPS_DIRECTORY1 RST);
-    printf(RED MAPS_DIRECTORY2 RST);
     if (CUB_EXECUTABLE == NULL)
     {
         printf(RED "Erro: CUB_EXECUTABLE é nulo\n" RST);
