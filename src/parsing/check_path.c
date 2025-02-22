@@ -12,7 +12,23 @@
 
 #include "../../includes/cub.h"
 
-static void	check_colors(t_data *data, char *line, char *temp);
+static void	check_colors(t_data *data, char *line, char *temp)
+{
+	static int	ceiling;
+	static int	floor;
+
+	if (ft_strncmp("F", temp, 1) == 0)
+		floor++;
+	if (ft_strncmp("C", temp, 1) == 0)
+		ceiling++;
+	if (ceiling == 1 && floor == 1)
+		data->colors = true;
+	if (ceiling > 1 || floor > 1)
+	{
+		free(line);
+		handle_error("Error: duplicated color.\n");
+	}
+}
 
 void	read_textures_path_aux(t_data *data, char *temp, char *line)
 {
@@ -40,23 +56,6 @@ void	read_textures_path_aux(t_data *data, char *temp, char *line)
 	data->size_textures++;
 }
 
-static void	check_colors(t_data *data, char *line, char *temp)
-{
-	static int	ceiling;
-	static int	floor;
-
-	if (ft_strncmp("F", temp, 1) == 0)
-		floor++;
-	if (ft_strncmp("C", temp, 1) == 0)
-		ceiling++;
-	if (ceiling == 1 && floor == 1)
-		data->colors = true;
-	if (ceiling > 1 || floor > 1)
-	{
-		free(line);
-		handle_error("Error: duplicated color.\n");
-	}
-}
 
 void	copy_texture_path(char **texture, char *path, char *mode,
 	char *line)

@@ -132,7 +132,7 @@ void test_map_parsing(const char *map_path, const char *directory)
     {
         if (found_parsing_ok)
         {
-            printf("\n\033[1;32m[ PASS ] Mapa processado com sucesso: %s \033[0m\n", map_path);
+            printf("\n\033[1;32m[   PASS   ] Mapa processado com sucesso: %s \033[0m\n", map_path);
             pass_count++;
         }
         else
@@ -147,7 +147,7 @@ void test_map_parsing(const char *map_path, const char *directory)
     {
         if (!found_parsing_ok)
         {
-            printf("\n\033[1;32m[ PASS ] Erro esperado para o mapa: %s \033[0m\n", map_path);
+            printf("\n\033[1;32m[   PASS   ] Erro esperado para o mapa: %s \033[0m\n", map_path);
             pass_count++;
         }
         else

@@ -45,10 +45,31 @@ void	check_extension(char *map_file)
 	exit(EXIT_FAILURE);
 }
 
+static void extension_path(char *path)
+{
+	char	*extension;
+	int		i;
+	int		len;
+	
+	i = 0;
+	extension = ".png";
+	len = ft_strlen(path);
+	len = len - 4;
+	while (path[len] && extension[i] && path[len] == extension[i])
+	{
+		i++;
+		len++;
+	}
+	if (extension[i] == '\0')
+	return ;
+	handle_error("Error: invalid texture path.\n");
+}
+
 int	check_path(char *path)
 {
 	int	fd;
 
+	extension_path(path);
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (0);
