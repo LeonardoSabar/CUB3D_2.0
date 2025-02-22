@@ -26,7 +26,7 @@ mlx_texture_t	*init_textures(char *path)
 
 	images = mlx_load_png(path);
 	if (!images)
-		handle_error("Error: mlx_load_png failed");
+		handle_error("Error: mlx_load_png failed\n");
 	return (images);
 }
 
