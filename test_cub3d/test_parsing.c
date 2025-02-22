@@ -97,7 +97,7 @@ void test_map_parsing(const char *map_path, const char *directory)
     snprintf(command, sizeof(command), "%s %s > %s 2>&1", CUB_EXECUTABLE, map_path, output_file);
     system(command);
 
-    // Abre o arquivo de saída e verifica se contém "PARSSING OK"
+    // Abre o arquivo de saída
     FILE *fp = fopen(output_file, "r");
     if (fp == NULL)
     {
@@ -108,17 +108,18 @@ void test_map_parsing(const char *map_path, const char *directory)
     char line[256];
     int found_parsing_ok = 0;
 
-    // Imprimir todo o conteúdo do arquivo temporário
+    // Para armazenar toda a saída do arquivo temporário
+    char output_buffer[2048]; // Buffer para armazenar a saída
+    output_buffer[0] = '\0'; // Inicializa como uma string vazia
+
+    // Lê o arquivo temporário
     while (fgets(line, sizeof(line), fp))
     {  
+        strcat(output_buffer, line); // Adiciona cada linha ao buffer
         if (strstr(line, "PARSSING OK") != NULL)
         {
             found_parsing_ok = 1;
             break;
-        }
-        else
-        {
-            found_parsing_ok = 0;
         }
     }
     fclose(fp);
@@ -126,6 +127,7 @@ void test_map_parsing(const char *map_path, const char *directory)
     // Remove o arquivo temporário
     remove(output_file);
 
+    // Lógica para verificar o resultado
     if (strcmp(directory, MAPS_DIRECTORY1) == 0)
     {
         if (found_parsing_ok)
@@ -136,7 +138,8 @@ void test_map_parsing(const char *map_path, const char *directory)
         else
         {
             printf("\n\033[1;31m[ NOT PASS ] Erro ao processar o mapa: %s\033[0m\n", map_path);
-            printf(" RETURN: %d\n", found_parsing_ok);
+            // Imprimir a saída para diagnosticar o erro
+            printf(RED "%s" RST, output_buffer);
             not_pass_count++;
         }
     }
