@@ -108,9 +108,9 @@ void	surrounded_by_walls(t_data *data)
 			{
 				if ((y == 0 || y == data->lines - 1)
 					|| (x == 0 || x == count_len(map[y]) - 1))
-					handle_error("Error: invalid map, check the edges.\n");
+					handle_error(WARNING_EDGE_MAP);
 				if (!check_sides(data, y, x) || !check_diagonals(data, y, x))
-					handle_error("Error: invalid map, check the walls.\n");
+					handle_error(WARNING_EDGE_MAP);
 			}
 			x++;
 		}

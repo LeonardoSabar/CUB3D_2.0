@@ -62,7 +62,7 @@ static void extension_path(char *path)
 	}
 	if (extension[i] == '\0')
 	return ;
-	handle_error("Error: invalid texture path.\n");
+	handle_error(WARNING_TEXTURE);
 }
 
 int	check_path(char *path)
