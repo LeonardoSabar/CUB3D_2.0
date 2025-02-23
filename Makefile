@@ -75,7 +75,7 @@ $(OBJ_PATH):
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME) -lm
-	@echo "The CUB3D has been compiled!"
+	@echo "Compilation complete!"
 
 clean:
 	@rm -rf $(OBJ_PATH)
