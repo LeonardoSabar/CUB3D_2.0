@@ -12,7 +12,7 @@
 
 #include "../../includes/cub.h"
 
-static void	is_not_bar_n(bool *is_map, bool *map_ended, char *temp, int size)
+static void	store_map_line(bool *is_map, bool *map_ended, char *temp, int size)
 {
 	t_cub		*game;
 	static int	i;
@@ -69,7 +69,7 @@ void	read_and_copy_map_content(char *temp, int fd)
 				map_ended = true;
 		}
 		else
-			is_not_bar_n(&is_map, &map_ended, temp, size);
+			store_map_line(&is_map, &map_ended, temp, size);
 		size++;
 		free(temp);
 		temp = get_next_line(fd);
