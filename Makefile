@@ -28,7 +28,19 @@ CFILES      :=  main.c \
                 init/init_game.c \
                 utils/utils.c \
                 exit/free_memory.c \
+                init/init.c \
+                init/init_game.c \
+                utils/utils.c \
+                exit/free_memory.c \
                 parsing/parsing.c \
+                parsing/check_args.c \
+                parsing/check_rgb.c \
+                parsing/data_processing.c \
+                parsing/map.c \
+                parsing/check_path.c \
+                parsing/map_utils.c \
+                parsing/check_wall.c \
+                parsing/tabs.c \
                 parsing/check_args.c \
                 parsing/check_rgb.c \
                 parsing/data_processing.c \
@@ -42,9 +54,16 @@ CFILES      :=  main.c \
                 render/images.c \
                 render/draw_squares.c \
                 render/wall.c \
+                render/movements.c \
+                render/images.c \
+                render/draw_squares.c \
+                render/wall.c \
                 render/algorithm.c \
                 render/update_image.c \
                 render/draw_loop.c
+                render/update_image.c \
+                render/draw_loop.c
+
 
 
 SRCS        := $(addprefix $(SRC_PATH)/, $(CFILES))
@@ -57,6 +76,10 @@ LIBS_MLX    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 all: libmlx $(OBJ_PATH) $(NAME)
 
 libmlx:
+	@if [ ! -d "$(LIBMLX)" ]; then \
+		echo "Cloning MLX42 repository..."; \
+		git clone $(MLX_REPO) $(LIBMLX); \
+	fi
 	@if [ ! -d "$(LIBMLX)" ]; then \
 		echo "Cloning MLX42 repository..."; \
 		git clone $(MLX_REPO) $(LIBMLX); \
@@ -75,7 +98,7 @@ $(OBJ_PATH):
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME) -lm
-	@echo "Compilation complete!"
+	@echo "The CUB3D has been compiled!"
 
 clean:
 	@rm -rf $(OBJ_PATH)
@@ -85,6 +108,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(LIBMLX)/build
 	@make fclean -C $(LIBFT_PATH)
+	@echo "Cleaning complete!"
 	@echo "Cleaning complete!"
 
 clear:
