@@ -18,8 +18,8 @@ int	main(int argc, char **argv)
 
 	init(&game);
 	parsing(argc, argv, &game);
-	printf("PARSSING OK\n"); // TODO: remove
-	//init_game(&game);
+	printf("PARSSING OK\n");
+	init_game(&game);
 	return (EXIT_SUCCESS);
 }
 

@@ -12,29 +12,6 @@
 
 #include "../../includes/cub.h"
 
-static void	intersection_point(t_dda *ray, t_cub *game, t_wall *wall);
-static void	find_texture_position_x(t_dda *ray, t_cub *game, t_wall *wall);
-static void	render_wall(t_cub *game, int pixel, t_wall *wall);
-
-void	draw_wall(t_dda *ray, t_cub *game, int pixel)
-{
-	t_wall	wall;
-
-	game->texture = set_wall(game, ray);
-	wall.height = (HEIGHT / ray->perp_dist);
-	wall.line_start_y = (HEIGHT / 2 - wall.height / 2);
-	wall.line_end_y = (HEIGHT / 2 + wall.height / 2);
-	if (wall.line_start_y < 0)
-		wall.line_start_y = 0;
-	if (wall.line_end_y >= HEIGHT)
-		wall.line_end_y = HEIGHT - 1;
-	intersection_point(ray, game, &wall);
-	find_texture_position_x(ray, game, &wall);
-	wall.texture_pos = (wall.line_start_y - HEIGHT / 2 + wall.height / 2)
-		* wall.texture_step;
-	render_wall(game, pixel, &wall);
-}
-
 static void	intersection_point(t_dda *ray, t_cub *game, t_wall *wall)
 {
 	if (ray->hit_side == 0)
@@ -79,16 +56,35 @@ mlx_texture_t	*set_wall(t_cub *game, t_dda *ray)
 	if (ray->hit_side == 1)
 	{
 		if (ray->step.y < 0)
-			return (game->north);
+		return (game->north);
 		else
-			return (game->south);
+		return (game->south);
 	}
 	else
 	{
 		if (ray->step.x < 0)
-			return (game->west);
+		return (game->west);
 		else
-			return (game->east);
+		return (game->east);
 	}
 	return (NULL);
+}
+
+void	draw_wall(t_dda *ray, t_cub *game, int pixel)
+{
+	t_wall	wall;
+
+	game->texture = set_wall(game, ray);
+	wall.height = (HEIGHT / ray->perp_dist);
+	wall.line_start_y = (HEIGHT / 2 - wall.height / 2);
+	wall.line_end_y = (HEIGHT / 2 + wall.height / 2);
+	if (wall.line_start_y < 0)
+		wall.line_start_y = 0;
+	if (wall.line_end_y > HEIGHT)
+		wall.line_end_y = HEIGHT;
+	intersection_point(ray, game, &wall);
+	find_texture_position_x(ray, game, &wall);
+	wall.texture_pos = (wall.line_start_y - HEIGHT / 2 + wall.height / 2)
+		* wall.texture_step;
+	render_wall(game, pixel, &wall);
 }
