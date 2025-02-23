@@ -67,6 +67,21 @@ void	check_rgb(uint32_t *color, char *rgb_color, char *original, char c)
 	ft_free_matrix(rgb);
 }
 
+static int valid_rgb_content(char *rgb_color)
+{
+	int	i;
+	int valid;
+
+	i = 0;
+	valid = 0;
+	while (rgb_color[i])
+	{
+		if (rgb_color[i] >= '0' && rgb_color[i] <= '9')
+			valid = 1;
+		i++;
+	}
+	return (valid);
+}
 
 void	split_rgb(char ***rgb, char *rgb_color, char *original, char c)
 {
@@ -84,11 +99,13 @@ void	split_rgb(char ***rgb, char *rgb_color, char *original, char c)
 	}
 	while ((*rgb)[i])
 	{
-		if (ft_strncmp((*rgb)[i], "\n", 1) == 0 || ft_isspace((*rgb)[i][0]))
-			handle_error_rgb(original, *rgb);
 		temp_strim = ft_strtrim((*rgb)[i], " \t\v\f\r\n\b");
 		free((*rgb)[i]);
 		(*rgb)[i] = temp_strim;
+		if (ft_strncmp((*rgb)[i], "\n", 1) == 0 || ft_isspace((*rgb)[i][0]))
+			handle_error_rgb(original, *rgb);
+		if (valid_rgb_content((*rgb)[i]) == 0)
+			handle_error_rgb(original, *rgb);
 		i++;
 	}
 	if (i != 3)
