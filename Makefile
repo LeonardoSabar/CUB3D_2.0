@@ -24,27 +24,28 @@ SRC_PATH    := src
 OBJ_PATH    := objects
 
 CFILES      :=  main.c \
-				init/init.c \
-				init/init_game.c \
-				utils/utils.c \
-				exit/free_memory.c \
+                init/init.c \
+                init/init_game.c \
+                utils/utils.c \
+                exit/free_memory.c \
                 parsing/parsing.c \
-				parsing/check_args.c \
-				parsing/check_rgb.c \
-				parsing/data_processing.c \
-				parsing/map.c \
-				parsing/check_path.c \
-				parsing/map_utils.c \
-				parsing/check_wall.c \
-				parsing/tabs.c \
+                parsing/check_args.c \
+                parsing/check_rgb.c \
+                parsing/data_processing.c \
+                parsing/map.c \
+                parsing/check_path.c \
+                parsing/map_utils.c \
+                parsing/check_wall.c \
+                parsing/tabs.c \
                 render/hooks.c \
-				render/movements.c \
-				render/images.c \
-				render/draw_squares.c \
-				render/wall.c \
+                render/movements.c \
+                render/images.c \
+                render/draw_squares.c \
+                render/wall.c \
                 render/algorithm.c \
-				render/update_image.c \
-				render/draw_loop.c
+                render/update_image.c \
+                render/draw_loop.c
+
 
 SRCS        := $(addprefix $(SRC_PATH)/, $(CFILES))
 OBJS        := $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
@@ -53,28 +54,13 @@ HEADERS     := -I ./includes
 HEADER_FILE := includes/cub.h ./MLX42/include
 LIBS_MLX    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-TOTAL_FILES = $(words $(CFILES))
-CURRENT_CFILES = 0
-
-define print_progress
-    $(eval CURRENT_CFILES=$(shell echo $$(($(CURRENT_CFILES)+1))))
-    @echo -n "\rProgress: $(CURRENT_CFILES) / 
-		$(TOTAL_FILES) [$$(($(CURRENT_CFILES) * 100 / $(TOTAL_FILES))%)] : $(1) "
-endef
-
 all: libmlx $(OBJ_PATH) $(NAME)
 
 libmlx:
-	@if [ -d "$(LIBMLX)" ]; then \
-		if [ -z "$(ls -A $(LIBMLX))" ]; then \
-			echo "Removing empty directory $(LIBMLX)..."; \
-			rm -rf $(LIBMLX); \
-		else \
-			echo "MLX42 directory exists and is not empty."; \
-		fi; \
+	@if [ ! -d "$(LIBMLX)" ]; then \
+		echo "Cloning MLX42 repository..."; \
+		git clone $(MLX_REPO) $(LIBMLX); \
 	fi
-	@echo "Cloning MLX42 repository..."
-	@git clone $(MLX_REPO) $(LIBMLX)
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(LIBFT):
@@ -89,7 +75,7 @@ $(OBJ_PATH):
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME) -lm
-	@echo "Compilation complete!"
+	@echo "The CUB3D has been compiled!"
 
 clean:
 	@rm -rf $(OBJ_PATH)
@@ -99,7 +85,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(LIBMLX)/build
 	@make fclean -C $(LIBFT_PATH)
-	@echo "All cleaned."
+	@echo "Cleaning complete!"
 
 clear:
 	clear
