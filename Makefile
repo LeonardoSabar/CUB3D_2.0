@@ -46,6 +46,7 @@ CFILES      :=  main.c \
                 render/update_image.c \
                 render/draw_loop.c
 
+
 SRCS        := $(addprefix $(SRC_PATH)/, $(CFILES))
 OBJS        := $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
@@ -53,28 +54,13 @@ HEADERS     := -I ./includes
 HEADER_FILE := includes/cub.h ./MLX42/include
 LIBS_MLX    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-TOTAL_FILES = $(words $(CFILES))
-CURRENT_CFILES = 0
-
-define print_progress
-    $(eval CURRENT_CFILES=$(shell echo $$(($(CURRENT_CFILES)+1))))
-    @echo -n "\rProgress: $(CURRENT_CFILES) / \
-        $(TOTAL_FILES) [$$(($(CURRENT_CFILES) * 100 / $(TOTAL_FILES))%)] : $(1) "
-endef
-
-all: $(NAME)
+all: libmlx $(OBJ_PATH) $(NAME)
 
 libmlx:
-	@if [ -d "$(LIBMLX)" ]; then \
-		if [ -z "`ls -A $(LIBMLX)`" ]; then \
-			echo "Removing empty directory $(LIBMLX)..."; \
-			rm -rf $(LIBMLX); \
-		else \
-			echo "MLX42 directory exists and is not empty."; \
-		fi; \
+	@if [ ! -d "$(LIBMLX)" ]; then \
+		echo "Cloning MLX42 repository..."; \
+		git clone $(MLX_REPO) $(LIBMLX); \
 	fi
-	@echo "Cloning MLX42 repository..."
-	@git clone $(MLX_REPO) $(LIBMLX)
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(LIBFT):
@@ -88,12 +74,8 @@ $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@if [ ! -f $(NAME) ] || [ `find $(OBJS) -newer $(NAME)` ]; then \
-		$(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME); \
-		echo "Compilation complete!"; \
-	else \
-		echo "No changes detected, skipping build."; \
-	fi
+	@$(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME) -lm
+	@echo "The [CUB3D] has been compiled!"
 
 clean:
 	@rm -rf $(OBJ_PATH)
@@ -103,12 +85,12 @@ fclean: clean
 	@rm -rf $(NAME)
 	@rm -rf $(LIBMLX)/build
 	@make fclean -C $(LIBFT_PATH)
-	@echo "All cleaned."
+	@echo "Cleaning complete!"
 
 clear:
 	clear
 	$(MAKE) all
 
-re: fclean
+re: fclean all
 
 .PHONY: all clean fclean re libmlx
