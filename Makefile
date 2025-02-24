@@ -88,7 +88,7 @@ $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@if [ ! -f $(NAME) ] || [ $$(find $(OBJS) -newer $(NAME) -print | grep -q . ]; then \
+	@if [ ! -f $(NAME) ] || [ `find $(OBJS) -newer $(NAME)` ]; then \
 		$(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME); \
 		echo "Compilation complete!"; \
 	else \
@@ -109,6 +109,6 @@ clear:
 	clear
 	$(MAKE) all
 
-re: fclean all
+re: fclean
 
 .PHONY: all clean fclean re libmlx
