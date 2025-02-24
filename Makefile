@@ -28,19 +28,7 @@ CFILES      :=  main.c \
                 init/init_game.c \
                 utils/utils.c \
                 exit/free_memory.c \
-                init/init.c \
-                init/init_game.c \
-                utils/utils.c \
-                exit/free_memory.c \
                 parsing/parsing.c \
-                parsing/check_args.c \
-                parsing/check_rgb.c \
-                parsing/data_processing.c \
-                parsing/map.c \
-                parsing/check_path.c \
-                parsing/map_utils.c \
-                parsing/check_wall.c \
-                parsing/tabs.c \
                 parsing/check_args.c \
                 parsing/check_rgb.c \
                 parsing/data_processing.c \
@@ -54,13 +42,7 @@ CFILES      :=  main.c \
                 render/images.c \
                 render/draw_squares.c \
                 render/wall.c \
-                render/movements.c \
-                render/images.c \
-                render/draw_squares.c \
-                render/wall.c \
                 render/algorithm.c \
-                render/update_image.c \
-                render/draw_loop.c
                 render/update_image.c \
                 render/draw_loop.c
 
