@@ -65,49 +65,49 @@ endef
 all: $(NAME)
 
 libmlx:
-    @if [ -d "$(LIBMLX)" ]; then \
-        if [ -z "$(ls -A $(LIBMLX))" ]; then \
-            echo "Removing empty directory $(LIBMLX)..."; \
-            rm -rf $(LIBMLX); \
-        else \
-            echo "MLX42 directory exists and is not empty."; \
-        fi; \
-    fi
-    @echo "Cloning MLX42 repository..."
-    @git clone $(MLX_REPO) $(LIBMLX)
-    @cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	@if [ -d "$(LIBMLX)" ]; then \
+		if [ -z "`ls -A $(LIBMLX)`" ]; then \
+			echo "Removing empty directory $(LIBMLX)..."; \
+			rm -rf $(LIBMLX); \
+		else \
+			echo "MLX42 directory exists and is not empty."; \
+		fi; \
+	fi
+	@echo "Cloning MLX42 repository..."
+	@git clone $(MLX_REPO) $(LIBMLX)
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(LIBFT):
-    @make -C $(LIBFT_PATH)
+	@make -C $(LIBFT_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER_FILE) | $(OBJ_PATH)
-    @mkdir -p $(dir $@)
-    @$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(OBJ_PATH):
-    @mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)
 
 $(NAME): $(LIBFT) $(OBJS)
-    @if [ ! -f $(NAME) ] || [ $$(find $(OBJS) -newer $(NAME) -print | grep -q . ]; then \
-        $(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME); \
-        echo "Compilation complete!"; \
-    else \
-        echo "No changes detected, skipping build."; \
-    fi
+	@if [ ! -f $(NAME) ] || [ $$(find $(OBJS) -newer $(NAME) -print | grep -q . ]; then \
+		$(CC) $(OBJS) $(LIBS_MLX) $(LIBFT) $(HEADERS) -o $(NAME); \
+		echo "Compilation complete!"; \
+	else \
+		echo "No changes detected, skipping build."; \
+	fi
 
 clean:
-    @rm -rf $(OBJ_PATH)
-    @echo "Objects cleaned."
+	@rm -rf $(OBJ_PATH)
+	@echo "Objects cleaned."
 
 fclean: clean
-    @rm -rf $(NAME)
-    @rm -rf $(LIBMLX)/build
-    @make fclean -C $(LIBFT_PATH)
-    @echo "All cleaned."
+	@rm -rf $(NAME)
+	@rm -rf $(LIBMLX)/build
+	@make fclean -C $(LIBFT_PATH)
+	@echo "All cleaned."
 
 clear:
-    clear
-    $(MAKE) all
+	clear
+	$(MAKE) all
 
 re: fclean all
 
